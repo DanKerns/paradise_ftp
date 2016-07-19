@@ -1,8 +1,8 @@
 package main
 
-import "github.com/andrewarrow/paradise_ftp/server"
-import "github.com/andrewarrow/paradise_ftp/client"
-import "github.com/andrewarrow/paradise_ftp/paradise"
+import "github.com/DanKerns/paradise_ftp/server"
+import "github.com/DanKerns/paradise_ftp/client"
+import "github.com/DanKerns/paradise_ftp/paradise"
 import "os"
 
 func main() {

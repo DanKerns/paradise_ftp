@@ -4,7 +4,7 @@ import "fmt"
 import "net"
 import "time"
 import "os"
-import "github.com/andrewarrow/paradise_ftp/paradise"
+import "github.com/DanKerns/paradise_ftp/paradise"
 
 func genClientID() string {
 	random, _ := os.Open("/dev/urandom")

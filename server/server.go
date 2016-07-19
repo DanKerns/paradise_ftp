@@ -7,7 +7,7 @@ import "net"
 import "strings"
 import "sync"
 import "time"
-import "github.com/andrewarrow/paradise_ftp/paradise"
+import "github.com/DanKerns/paradise_ftp/paradise"
 
 var Settings ParadiseSettings
 var CommandMap map[string]func(*Paradise)

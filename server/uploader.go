@@ -1,7 +1,9 @@
 package server
 
 import "io"
+import "fmt"
 import "time"
+import "crypto/sha256"
 
 func (p *Paradise) HandleStore() {
 	passive := p.lastPassive()
@@ -30,6 +32,9 @@ func (p *Paradise) HandleStore() {
 
 func (p *Paradise) storeOrAppend(passive *Passive) (int64, error) {
 	var err error
+
+	h := sha256.New()
+
 	err = p.readFirst512Bytes(passive)
 	if err != nil {
 		return 0, err
@@ -43,6 +48,7 @@ func (p *Paradise) storeOrAppend(passive *Passive) (int64, error) {
 	var total int64
 	var n int
 	total = int64(len(p.buffer))
+	h.Write(p.buffer)
 	for {
 		temp_buffer := make([]byte, 20971520) // reads 20MB at a time
 		n, err = passive.connection.Read(temp_buffer)
@@ -55,8 +61,9 @@ func (p *Paradise) storeOrAppend(passive *Passive) (int64, error) {
 		if err != nil {
 			break
 		}
+		h.Write(temp_buffer[:n])
 	}
-	//fmt.Println(p.id, " Done ", total)
+	fmt.Printf("%s %s Done %d bytes hash=%x\n", passive.command, passive.param, total, h.Sum(nil))
 
 	return total, err
 }
